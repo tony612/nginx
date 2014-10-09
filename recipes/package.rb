@@ -40,7 +40,8 @@ end
 package node['nginx']['package_name'] do
   options package_install_opts
   notifies :reload, 'ohai[reload_nginx]', :immediately
-  not_if 'which nginx'
+  version node['nginx']['install_version'] if node['nginx']['install_version']
+  action node['nginx']['install_action']
 end
 
 service 'nginx' do
