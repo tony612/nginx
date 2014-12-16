@@ -47,3 +47,11 @@ end
     mode  '0755'
   end
 end
+
+unless node['nginx']['default_site_enabled']
+  %w(default.conf example_ssl.conf).each do |config|
+    file "/etc/nginx/conf.d/#{config}" do
+      action :delete
+    end
+  end
+end
